@@ -2,10 +2,12 @@ package com.example.appfirebase.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
+// Paleta principal de Aurium
+val AuriumOrange = Color(0xFFF39C12) // Naranja vibrante
+val AuriumYellow = Color(0xFFFFC107) // Amarillo/Dorado
+val AuriumNavy = Color(0xFF1E2433)   // Azul Marino / Fondo oscuro
+val AuriumLight = Color(0xFFF8F9FA)  // Blanco / Gris muy claro
 
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
+// Colores de estado/apoyo (siempre útiles en Fintech)
+val AuriumError = Color(0xFFE53935)
+val AuriumSuccess = Color(0xFF43A047)
