@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -70,4 +71,10 @@ data class LoginUiState(
     // Validación básica para habilitar el botón de login
     val isLoginValid: Boolean
         get() = phoneNumber.length >= 10 && pin.length == 4
+}
+fun testFirebase() {
+    val database = FirebaseDatabase.getInstance()
+    val ref = database.getReference("test")
+
+    ref.setValue("Hola mundo")
 }
