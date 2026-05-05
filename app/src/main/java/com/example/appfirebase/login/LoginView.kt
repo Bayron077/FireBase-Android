@@ -17,7 +17,7 @@ fun LoginView(
     onNavigateToHome: () -> Unit // Callback para AppNavigation
 ) {
     // Recolectamos el estado de manera segura considerando el ciclo de vida
-    val uiState by viewModel.uiState.collectAsState()
+    val uiState = viewModel.uiState
 
     Column(
         modifier = Modifier

@@ -1,5 +1,8 @@
 package com.example.appfirebase.login
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.delay
@@ -11,28 +14,30 @@ import kotlinx.coroutines.launch
 
 class LoginViewModel : ViewModel() {
 
-    private val _uiState = MutableStateFlow(LoginUiState())
-    val uiState: StateFlow<LoginUiState> = _uiState.asStateFlow()
+    var uiState by mutableStateOf(LoginUiState())
+        private set
+
+
 
     fun onPhoneNumberChanged(newNumber: String) {
         // Solo permitimos dígitos y un máximo razonable para teléfonos (ej. 10 a 15)
         if (newNumber.all { it.isDigit() } && newNumber.length <= 15) {
-            _uiState.update { it.copy(phoneNumber = newNumber, errorMessage = null) }
+            uiState = uiState.copy(phoneNumber = newNumber, errorMessage = null)
         }
     }
 
     fun onPinChanged(newPin: String) {
         // Solo permitimos dígitos y exactamente hasta 4 caracteres
         if (newPin.all { it.isDigit() } && newPin.length <= 4) {
-            _uiState.update { it.copy(pin = newPin, errorMessage = null) }
+            uiState = uiState.copy(pin = newPin, errorMessage = null)
         }
     }
 
     fun login(onNavigateToHome: () -> Unit) {
-        if (!_uiState.value.isLoginValid) return
+        if (!uiState.isLoginValid) return
 
         viewModelScope.launch {
-            _uiState.update { it.copy(isLoading = true, errorMessage = null) }
+            uiState = uiState.copy(isLoading =  true, errorMessage = null)
             
             // TODO: Aquí implementaremos la llamada al Repositorio / Firebase
             // Por ahora simularemos un retraso de red
@@ -42,12 +47,14 @@ class LoginViewModel : ViewModel() {
             val success = true 
             
             if (success) {
-                _uiState.update { it.copy(isLoading = false) }
+                uiState = uiState.copy(isLoading = false)
                 onNavigateToHome()
             } else {
-                _uiState.update { 
-                    it.copy(isLoading = false, errorMessage = "Credenciales incorrectas") 
-                }
+                uiState = uiState.copy(
+                    isLoading = false,
+                    errorMessage = "Credenciales incorrectas"
+
+                )
             }
         }
     }
